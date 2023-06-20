@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+	frontmatter: CollectionEntry<"articles">;
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={frontmatter.data.description}>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{frontmatter.data.title}</title>
+	</head>
+	<body>
+        <main>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/Articles/">Articles</a>
+            </nav>
+            <hr />
+            <slot />
+        </main>
+	</body>
+</html>
+
+<style>
+
+main {
+    margin: auto;
+    padding: 1.5rem;
+    max-width: 60ch;
+    /* background-color: #fcfcfc; */
+    color: #111;
+    line-height: 1.4em;
+    max-width: 38em;
+    /* padding-bottom: 2em; */
+    font-family: "IBM Plex Serif", serif;
+
+}
+nav {
+    text-align: center;
+}
+
+nav a {
+    padding: 0 0.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
