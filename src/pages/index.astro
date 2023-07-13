@@ -1,19 +1,71 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+let articles = await getCollection('articles');
+articles = articles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+articles = articles.slice(0, 3);
 ---
 
 <Layout title="Lucius">
-    <h1></h1>
+    <h1>Recent Posts</h1>
+    <ul class="post-list">
+        {
+            articles.map((article) => (
+            <li>
+                    <a class="post-link" href={"/posts/" + article.slug}>
+                        {article.data.title}
+                    </a>
+                    <div class="post-meta">
+                        <span>{article.data.pubDate.toDateString()}</span>
+                        &middot;
+                        <span>{article.data.description}</span>
+                    </div>
+                </li>
+            ))
+        }
+    </ul>
     <p>
-
+        <a href="/articles">View all posts...</a>
     </p>
 </Layout>
 
 <style>
 	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: var(--heading-color);
 	}
+
+    .post-list {
+        list-style: none;
+        display: block;
+        padding-left: 0;
+    }
+
+    .post-list li {
+        margin-bottom: 2rem;
+    }
+
+    .post-link {
+        font-size: 1.5rem;
+        font-weight: 300;
+        text-decoration: none;
+        color: var(--link-color);
+    }
+    .post-meta {
+        font-size: 1rem;
+        font-weight: 200;
+        color: var(--heading-color);
+    }
+
+    a {
+        color: var(--link-color);
+        text-decoration: none;
+    }
+    a:hover {
+        color: var(--link-hover-color);
+    }
+
 
 </style>

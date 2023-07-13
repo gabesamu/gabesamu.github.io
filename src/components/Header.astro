@@ -1,0 +1,44 @@
+---
+import GlobalStyles from "../layouts/GlobalStyles.astro";
+---
+
+<GlobalStyles />
+<header>
+    <div class="wrapper">
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/articles/">Articles</a>
+        </nav>
+    </div>
+</header>
+
+<style>
+
+    .wrapper {
+        max-width: 65rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    header {
+        border-bottom: 1px solid #676e95;
+        min-height: 3rem;
+    }
+
+    nav {
+        text-align: center;
+        line-height: 3rem;
+    }
+
+    nav a {
+        padding: 0 0.5em;
+        font-size: 1.2em;
+        text-decoration: none;
+        color: var(--link-color);
+    }
+
+    nav a:hover {
+        color: var(--link-hover-color);
+    }
+</style>

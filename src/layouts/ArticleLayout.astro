@@ -1,4 +1,6 @@
 ---
+import GlobalStyles from './GlobalStyles.astro';
+import Header from '../components/Header.astro';
 import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
@@ -10,9 +12,10 @@ const { frontmatter } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
+    <GlobalStyles />
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={frontmatter.data.description}>
+		<meta name="description" content={frontmatter.data.description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -20,39 +23,37 @@ const { frontmatter } = Astro.props;
 	</head>
 	<body>
         <main>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/about/">About</a>
-                <a href="/Articles/">Articles</a>
-            </nav>
-            <hr />
-            <slot />
+            <Header />
+            <div class="wrapper">
+                <slot />
+            </div>
         </main>
 	</body>
 </html>
 
-<style>
+<style is:global>
+	html {
+		font-family: var(--base-font-family);
+		background-color: var(--background-color);
+	}
 
-main {
-    margin: auto;
-    padding: 1.5rem;
-    max-width: 60ch;
-    /* background-color: #fcfcfc; */
-    color: #111;
-    line-height: 1.4em;
-    max-width: 38em;
-    /* padding-bottom: 2em; */
-    font-family: "IBM Plex Serif", serif;
+    .wrapper {
+        max-width: 65rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
 
-}
-nav {
-    text-align: center;
-}
+    body {
+        margin: auto;
+        padding: 0;
+        line-height: 1.4rem;
+        font-size: var(--base-font-size);
+        color: var(--text-color);
+    }
 
-nav a {
-    padding: 0 0.5em;
-    font-size: 1.1em;
-    font-weight: bold;
-    text-decoration: none;
-}
+    a {
+        color: var(--link-color);
+        text-decoration: none;
+    }
+
 </style>

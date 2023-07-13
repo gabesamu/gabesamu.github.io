@@ -7,62 +7,52 @@ const articles = await getCollection('articles');
 
 <Layout title="Articles">
     <!-- <h1>Articles</h1> -->
-    <ul>
+    <ul class="post-list">
         {
-            articles.map((article) => (
+            articles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+            .map((article) => (
                 <li>
-                    <a href={"/posts" + article.slug}>
+                    <a class="post-link" href={"/posts/" + article.slug}>
                         {article.data.title}
                     </a>
-                    <div class="info">
+                    <div class="post-meta">
                         <span>{article.data.pubDate.toDateString()}</span>
                         &middot;
-                        <span>{article.data.description</span>
+                        <span>{article.data.description}</span>
                     </div>
                 </li>
-            )
-            )
+            ))
         }
     </ul>
 </Layout>
 
 <style>
 
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-
-    ul {
+.post-list {
         list-style: none;
         display: block;
-        margin-block-start: 1em;
-        margin-block-end: 1em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-        padding-inline-start: 40px;
-
-    }
-    ul li {
-        margin-bottom: 1.5rem;
+        padding-left: 0;
     }
 
-    ul li a {
+    .post-list li {
+        margin-bottom: 2rem;
+    }
+
+    .post-link {
         font-size: 1.5rem;
-        font-weight: 600;
+        font-weight: 200;
         text-decoration: none;
-        color: #222;
+        color: var(--link-color);
     }
 
     ul li a:hover {
-        text-decoration: underline;
+        color: var(--link-hover-color);
     }
 
-    ul li .info {
+    .post-meta {
         font-size: 1rem;
-        font-weight: 400;
-        color: #666;
+        font-weight: 200;
+        color: var(--heading-color);
     }
 
 

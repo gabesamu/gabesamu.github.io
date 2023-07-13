@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "readwise": "python3 ./scripts/import_from_readwise.py"
   },
   "dependencies": {
     "astro": "^2.6.4"

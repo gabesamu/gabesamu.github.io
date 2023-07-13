@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const notes = await getCollection('notes');
+for (const note of notes) {
+    note.data.pubDate = new Date(note.data.pubDate);
+}
+---
+
+<Layout title='Notes'>
+
+    <ul>
+        {
+            notes.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+            .map((notes) => (
+                <li>
+                    <h1>
+                        <a href={notes.data.url}>{notes.data.source_title}</a>
+                    </h1>
+                    <blockquote>
+                        <p>{notes.data.text}</p>
+                    </blockquote>
+                    <p>{notes.data.note}</p>
+                    <p class="date">{notes.data.pubDate.toDateString()}</p>
+                </li>
+            ))
+        }
+    </ul>
+</Layout>
+
+<style>
+    ul {
+        list-style: none;
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    blockquote {
+        font-size: 1.5rem;
+        font-style: italic;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+
+    .date {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #666;
+    }
+</style>
