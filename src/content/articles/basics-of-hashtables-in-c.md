@@ -183,3 +183,9 @@ void hashmap_remove(HashMap* obj, int key) {
 }
 
 ```
+
+These are the basic functions for manipulating the hash map. The `hashmap_put` function takes a key and value and stores them in the map. It first hashes the key to get the index of the array to store the data in. It then checks if there is already a node in the list with the same key. If there is, it just updates the value of that node. If not, it creates a new node and adds it to the head of the list.
+
+The `hashmap_get` function takes a key and returns the value associated with that key. It first hashes the key to get the index of the array to search. It then iterates through the linked list at that index until it finds a node with the same key. If it reaches the end of the list without finding a node with the same key, it returns -1.
+
+The `hashmap_remove` function takes a key and removes the node with that key from the map. It first hashes the key to get the index of the array to search. It then iterates through the linked list at that index until it finds a node with the same key. If it reaches the end of the list without finding a node with the same key, it does nothing. If it finds a node with the same key, it removes that node from the list and frees the memory.

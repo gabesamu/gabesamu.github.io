@@ -11,6 +11,17 @@ const articleCollection = defineCollection({
     })
  });
 
+ const codeLinksCollection = defineCollection({
+    type: "data",
+    schema: z.object({
+        title: z.string(),
+        url: z.string(),
+        description: z.string(),
+    })
+ });
+
+
+
 
 // const literalSchema = z.union([z.string(), z.number(), z.boolean(), z.null()]);
 // type Literal = z.infer<typeof literalSchema>;
@@ -39,4 +50,5 @@ const articleCollection = defineCollection({
 export const collections = {
   "articles": articleCollection,
   "notes": noteCollection,
+    "code_links": codeLinksCollection,
 };

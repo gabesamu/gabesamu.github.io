@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+
+import { getCollection } from 'astro:content';
+
+const code_links = await getCollection('code-links');
+---
+
+<Layout title="Code">
+    <ul class="code-list">
+        {
+            code_links.map(( link ) => (
+                <li>
+                        <a class="code-link" href={link.data.url}>
+                            {link.data.title}
+                        </a>
+                        <div>
+                            <span class="code-link-meta">{link.data.description}</span>
+                        </div>
+                </li>
+            ))
+        }
+    </ul>
+</Layout>
+
+
+<style>
+    .code-list {
+            list-style: none;
+            display: block;
+            padding-left: 0;
+        }
+
+    .code-list li {
+        margin-bottom: 2rem;
+    }
+
+    .code-link {
+        font-size: 1.5rem;
+        font-weight: 200;
+        text-decoration: none;
+        color: var(--link-color);
+    }
+
+    ul li a:hover {
+        color: var(--link-hover-color);
+    }
+
+    .code-link-meta {
+        font-size: 1rem;
+        font-weight: 200;
+        color: var(--heading-color);
+    }
+</style>
