@@ -8,7 +8,7 @@ tags: ["data-structures", "C", "algorithms", "advent-of-code"]
 
 
 # Day 1: Trebuchet - [problem](https://adventofcode.com/2023/day/1)
-
+[Link to code](https://github.com/gabesamu/adventofcode2023/blob/main/Day1/day1.c)
 <br>
 
 ## Input Analysis
