@@ -12,10 +12,10 @@ tags: ["data-structures", "C", "algorithms", "advent-of-code"]
 <br>
 
 ## Input Analysis
-A file full of lines, each line consists of alphanumric characters.
+A file full of lines, each line consists of alphanumric characters with no spaces.
 
 
-## Part 1 Problem Statement
+## Part 1 Core Problem
 Get the first and last digit character of each line, and combine them into one number. Them sum all the numbers together.
 
 
@@ -45,6 +45,13 @@ int find_last_digit(Line *line) {
     while (!isdigit(line->text[line->position])) line->position--;
     return line->text[line->position] - '0';
 
+
+```
+
+### Driver Code
+Grab each line, get the first and last digit, add them together, and add that to the running sum.
+
+```c
 void part1_script() {
     FILE *fp = fopen("input.txt", "r");
     Line line;
@@ -63,16 +70,16 @@ void part1_script() {
 
 ```
 
-Two functions to scan the line for the first and last digit and a function that adds a digit to an integer is enough to handle this simple problem.
 
-
-## Part 2 Problem Statement
+## Part 2 Core Problem
 Get the first and last number of each line, and combine them into one number. Them sum all the numbers together.
 This time the number can be represented as a the word.
 
 
 ## Solving
 The work here is the same as the first part, but in order to handle the words, instead of searching for digits, just search for substrings.
+
+In order to search for the substrings in the right position, the last index of the word is needed incase a digit appears in the middle of a word. To do this I wrote two modified versions of stdlib strstr, which return the index of the last character of the substring instead of the first. One starts the search at the front, the other starts from the back. Now with these I just search the line for each substring that can represent a number, returning the corresponding integer.
 
 ```c
 
@@ -134,4 +141,25 @@ int find_last_num_substr(Line *line) {
     return num;
 }
 ```
-In order to search for the substrings in the right position, the last index of the word is needed incase a digit appears in the middle of a word. To do this I wrote two modified versions of stdlib strstr, which return the index of the last character of the substring instead of the first. One starts the search at the front, the other starts from the back. Now with these I just search the line for each substring that can represent a number, returning the corresponding integer.
+
+### Driver Code
+Same as part 1, using the new number finding functions.
+```c
+void part2_script() {
+    FILE *fp = fopen("input.txt", "r");
+    Line line;
+    int sum = 0;
+
+    while (fgets(line.text, 150, fp) != NULL) {
+        line.position = 0;
+        int num = 0;
+
+        num = add_digit(num, find_first_num_substr(&line));
+        num = add_digit(num, find_last_num_substr(&line));
+
+        sum += num;
+    }
+
+    printf("Part 2: %d\n", sum);
+}
+```
